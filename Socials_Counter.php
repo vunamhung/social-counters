@@ -1,9 +1,8 @@
 <?php
 
-namespace core\widgets;
+namespace vnh;
 
 use core\socials_counter\Counters;
-use vnh\Widget;
 
 class Socials_Counter extends Widget {
 	public function config() {
