@@ -29,9 +29,6 @@
 		"composer/installers": "~1.0"
 	},
 	"autoload": {
-		"files": [
-			"bootstrap.php"
-		],
 		"psr-4": {
 			"vnh\\": "."
 		}
