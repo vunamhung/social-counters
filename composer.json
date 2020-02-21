@@ -1,0 +1,39 @@
+{
+	"name": "vunamhung/social_counters",
+	"description": "This is a toolkit for WordPress developer.",
+	"keywords": [
+		"wordpress",
+		"social",
+		"counters"
+	],
+	"homepage": "https://github.com/vunamhung/social_counters",
+	"license": "GPL-3.0+",
+	"support": {
+		"issues": "https://github.com/vunamhung/social_counters/issues",
+		"source": "https://github.com/vunamhung/social_counters"
+	},
+	"authors": [
+		{
+			"name": "Vu Nam Hung",
+			"email": "vunamhung@gmail.com",
+			"homepage": "https://github.com/vunamhung/",
+			"role": "Lead Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.6.0",
+		"vunamhung/wptoolkit": "^0.9.5",
+		"clue/buzz-react": "^2.6"
+	},
+	"suggest": {
+		"composer/installers": "~1.0"
+	},
+	"autoload": {
+		"files": [
+			"bootstrap.php"
+		],
+		"psr-4": {
+			"vnh\\": "."
+		}
+	}
+}
