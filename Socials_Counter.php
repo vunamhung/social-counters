@@ -2,7 +2,7 @@
 
 namespace vnh;
 
-use core\socials_counter\Counters;
+use vnh\socials_counters\Counters;
 
 class Socials_Counter extends Widget {
 	public function config() {

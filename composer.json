@@ -1,6 +1,6 @@
 {
 	"name": "vunamhung/social_counters",
-	"description": "This is a toolkit for WordPress developer.",
+	"description": "This is social counter package for WordPress.",
 	"keywords": [
 		"wordpress",
 		"social",
@@ -24,9 +24,6 @@
 		"php": ">=5.6.0",
 		"vunamhung/wptoolkit": "^0.9.5",
 		"clue/buzz-react": "^2.6"
-	},
-	"suggest": {
-		"composer/installers": "~1.0"
 	},
 	"autoload": {
 		"psr-4": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace core\socials_counter;
+namespace vnh\socials_counters;
 
 use Clue\React\Buzz\Browser;
 use function vnh\random_user_agent;
