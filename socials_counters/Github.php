@@ -1,11 +1,14 @@
 <?php
 
-namespace core\socials_counter;
+namespace vnh\socials_counters;
 
 use Psr\Http\Message\ResponseInterface;
+use function vnh\random_user_agent;
+use function vnh\request;
 
-class Steam extends Counter {
-	public $counter = 'Steam';
+class Github extends Counter {
+	public $counter = 'Github';
+	public $base_url = 'https://api.github.com/users';
 
 	public function get_counter() {
 		$cached_counter = get_transient($this->args['transient_name']);
@@ -16,7 +19,7 @@ class Steam extends Counter {
 			return true;
 		}
 
-		$url = sprintf('https://steamcommunity.com/groups/%s/memberslistxml?xml=1', $this->args['username']);
+		$url = sprintf('%s/%s', $this->base_url, $this->args['username']);
 
 		$this->client->get($url, $this->headers)->then(function (ResponseInterface $results) {
 			if ($results->getStatusCode() === 429) {
@@ -25,11 +28,9 @@ class Steam extends Counter {
 				return false;
 			}
 
-			$xml = simplexml_load_string($results->getBody());
-			$json = wp_json_encode($xml);
-			$array = json_decode($json, true);
-			if ($results->getStatusCode() === 200 && !empty($array['groupDetails']['memberCount'])) {
-				$this->counter = $array['groupDetails']['memberCount'];
+			$array = json_decode($results->getBody(), true);
+			if ($results->getStatusCode() === 200 && !empty($array['followers'])) {
+				$this->counter = $array['followers'];
 				$this->counter = $this->number_shorten($this->counter);
 				set_transient($this->args['transient_name'], $this->counter, DAY_IN_SECONDS * 7);
 			}

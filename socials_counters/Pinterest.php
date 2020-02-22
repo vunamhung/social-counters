@@ -1,6 +1,6 @@
 <?php
 
-namespace core\socials_counter;
+namespace vnh\socials_counters;
 
 class Pinterest extends Counter {
 	public function add_shortcode() {
