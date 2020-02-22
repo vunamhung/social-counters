@@ -1,6 +1,6 @@
 <?php
 
-namespace core\socials_counter;
+namespace vnh\socials_counters;
 
 use Psr\Http\Message\ResponseInterface;
 
