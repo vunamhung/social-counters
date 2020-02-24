@@ -1,10 +1,13 @@
 <?php
 
-namespace vnh;
+namespace vnh\widgets;
 
-use vnh\socials_counters\Counters;
+use vnh\counters\Counters;
+use vnh\Widget;
 
-class Socials_Counter extends Widget {
+use function vnh\get_svg_icon;
+
+class Social_Counters extends Widget {
 	public function config() {
 		return [
 			'id_base' => 'socials_counter',

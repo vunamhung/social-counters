@@ -1,13 +1,14 @@
 <?php
 
-namespace vnh\socials_counters;
+namespace vnh\counters;
 
 use Psr\Http\Message\ResponseInterface;
+use function vnh\random_user_agent;
 
-class Soundcloud extends Counter {
-	public $counter = 'Soundcloud';
-	public $base_url = 'https://api.soundcloud.com/users/';
-	public $consumer_key = '8bcccc3476eaa137a084c9f0c041915f';
+class Twitter extends Counter {
+	public $counter = 'Twitter';
+	public $base_url = 'https://api.twitter.com/1.1/users/show.json';
+	public $access_token = 'AAAAAAAAAAAAAAAAAAAAAJBzagAAAAAAXr%2Fxj2UWtV%2BnQNigsUm%2Bjrlkr4o%3DoYt2AFQFvPpPsJ1wtVmJ3MLetbYnmTWLFzDZJWLnXZtRJRZKOQ';
 
 	public function get_counter() {
 		$cached_counter = get_transient($this->args['transient_name']);
@@ -18,9 +19,13 @@ class Soundcloud extends Counter {
 			return true;
 		}
 
-		$url = add_query_arg(['consumer_key' => $this->consumer_key], $this->base_url . $this->args['username']);
+		$headers = [
+			'Authorization' => 'Bearer ' . $this->access_token,
+			'User-Agent' => random_user_agent(),
+		];
+		$url = add_query_arg(['screen_name' => $this->args['username']], $this->base_url);
 
-		$this->client->get($url, $this->headers)->then(function (ResponseInterface $results) {
+		$this->client->get($url, $headers)->then(function (ResponseInterface $results) {
 			if ($results->getStatusCode() === 429) {
 				set_transient($this->args['transient_name'], $this->counter, HOUR_IN_SECONDS);
 
