@@ -1,6 +1,6 @@
 <?php
 
-namespace vnh\socials_counters;
+namespace vnh\counters;
 
 use Psr\Http\Message\ResponseInterface;
 use function vnh\random_user_agent;

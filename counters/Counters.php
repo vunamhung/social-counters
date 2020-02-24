@@ -1,6 +1,6 @@
 <?php
 
-namespace vnh\socials_counters;
+namespace vnh\counters;
 
 use Clue\React\Buzz\Browser;
 use vnh\contracts\Initable;

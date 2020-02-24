@@ -1,13 +1,11 @@
 <?php
 
-namespace vnh\socials_counters;
+namespace vnh\counters;
 
 use Psr\Http\Message\ResponseInterface;
 
-class Behance extends Counter {
-	public $counter = 'Behance';
-	public $base_url = 'https://www.behance.net/v2/users';
-	public $api_key = 'INekEPLWGFlXlfmWjjOZD79vWNaD1Nxj';
+class Steam extends Counter {
+	public $counter = 'Steam';
 
 	public function get_counter() {
 		$cached_counter = get_transient($this->args['transient_name']);
@@ -18,7 +16,7 @@ class Behance extends Counter {
 			return true;
 		}
 
-		$url = add_query_arg(['api_key' => $this->api_key], sprintf('%s/%s', $this->base_url, $this->args['username']));
+		$url = sprintf('https://steamcommunity.com/groups/%s/memberslistxml?xml=1', $this->args['username']);
 
 		$this->client->get($url, $this->headers)->then(function (ResponseInterface $results) {
 			if ($results->getStatusCode() === 429) {
@@ -27,9 +25,11 @@ class Behance extends Counter {
 				return false;
 			}
 
-			$array = json_decode($results->getBody(), true);
-			if ($results->getStatusCode() === 200 && !empty($array['user']['stats']['followers'])) {
-				$this->counter = $array['user']['stats']['followers'];
+			$xml = simplexml_load_string($results->getBody());
+			$json = wp_json_encode($xml);
+			$array = json_decode($json, true);
+			if ($results->getStatusCode() === 200 && !empty($array['groupDetails']['memberCount'])) {
+				$this->counter = $array['groupDetails']['memberCount'];
 				$this->counter = $this->number_shorten($this->counter);
 				set_transient($this->args['transient_name'], $this->counter, DAY_IN_SECONDS * 7);
 			}
